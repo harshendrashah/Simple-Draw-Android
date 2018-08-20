@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -21,6 +22,8 @@ public class SimpleDrawingView extends View {
     // Stores Points to draw circles each time user touches
     private List<Point> circlePoints;
 
+    private Path path = new Path();
+
     public SimpleDrawingView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         setFocusable(true);
@@ -32,17 +35,33 @@ public class SimpleDrawingView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        for (Point p : circlePoints) {
+        /* for (Point p : circlePoints) {
             canvas.drawCircle(p.x, p.y, 5, drawPaint);
-        }
+        } */
+        canvas.drawPath(path, drawPaint);
     }
 
     // Append new circle each time user presses on screen
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float touchX = event.getX();
-        float touchY = event.getY();
-        circlePoints.add(new Point(Math.round(touchX), Math.round(touchY)));
+        //float touchX = event.getX();
+        //float touchY = event.getY();
+        float pointX = event.getX();
+        float pointY = event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                // Starts a new line in the path
+                path.moveTo(pointX, pointY);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                // Draws line between last point and this poin
+                path.lineTo(pointX, pointY);
+                break;
+            default:
+                return false;
+        }
+        //circlePoints.add(new Point(Math.round(touchX), Math.round(touchY)));
         // indicate view should be redrawn
         postInvalidate();
         return true;
