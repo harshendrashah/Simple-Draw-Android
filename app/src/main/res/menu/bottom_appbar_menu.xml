@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/appBarShapes"
+        android:icon="@drawable/outline_category_white_18dp"
+        android:title="Shapes"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/appBarColor"
+        android:icon="@drawable/outline_color_lens_white_18dp"
+        android:title="Color" />
+
+    <item
+        android:id="@+id/appBarUndo"
+        android:icon="@drawable/outline_undo_white_18dp"
+        android:title="Undo"/>
+
+    <item
+        android:id="@+id/appBarSave"
+        android:icon="@drawable/outline_save_alt_white_18dp"
+        android:title="Save"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/appBarClear"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="Clear"/>
+
+
+</menu>

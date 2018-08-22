@@ -20,11 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:gravity="center"
         app:fabAttached="true"
+        app:fabCradleRoundedCornerRadius="56dp"
+        app:fabCradleDiameter="64dp"
         app:backgroundTint="@color/colorPrimary"
-        app:fabCradleDiameter="0dp"/>
+        app:navigationIcon="@drawable/outline_menu_white_18dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
