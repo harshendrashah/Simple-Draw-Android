@@ -1,8 +1,10 @@
 package com.example.harshendra.simpledraw;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -24,6 +26,10 @@ public class SimpleDrawingView extends View {
 
     private Path path = new Path();
 
+    Canvas myCanvas;
+    static Bitmap myCanvasBitmap;
+    Matrix identityMatrix;
+
     public SimpleDrawingView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         setFocusable(true);
@@ -38,7 +44,9 @@ public class SimpleDrawingView extends View {
         /* for (Point p : circlePoints) {
             canvas.drawCircle(p.x, p.y, 5, drawPaint);
         } */
-        canvas.drawPath(path, drawPaint);
+        myCanvas.drawPath(path, drawPaint);
+        //canvas.drawPath(path, drawPaint);
+        canvas.drawBitmap(myCanvasBitmap, identityMatrix, null);
     }
 
     // Append new circle each time user presses on screen
@@ -66,6 +74,28 @@ public class SimpleDrawingView extends View {
         postInvalidate();
         return true;
     }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int w = MeasureSpec.getSize(widthMeasureSpec);
+        int h = MeasureSpec.getSize(heightMeasureSpec);
+
+        myCanvasBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        myCanvas = new Canvas();
+        myCanvas.setBitmap(myCanvasBitmap);
+
+        identityMatrix = new Matrix();
+
+        setMeasuredDimension(w, h);
+    }
+
+    public static Bitmap getCanvasBitmap(){
+
+        return myCanvasBitmap;
+
+    }
+
 
     // Setup Paint with color and stroke style
     private void setupPaint() {
